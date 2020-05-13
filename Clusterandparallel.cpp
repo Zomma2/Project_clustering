@@ -44,10 +44,10 @@ void *threadfunction(void *threadid) {
 
 		}
 		cout << "thread no" << tid << "  modified the array"  <<endl;
-		pthread_mutex_lock(&mutex);
+		//pthread_mutex_lock(&mutex);
 		printarray(arr);
 		cout << "-------------------------------------------" << endl;
-		pthread_mutex_unlock(&mutex);
+		//pthread_mutex_unlock(&mutex);
 	}
 	pthread_exit(NULL);
 	return NULL;
@@ -55,36 +55,52 @@ void *threadfunction(void *threadid) {
 
 void Seqfunction(int (&arr)[n][m]) {
 
-	
-	int temp;
+	int no_of_small_all = 0;
+	int temp[n][m];
 	int i;
-	for (int k = 0; k < 10 ; k++)
-	{
-		 i = k + 1;
-		while (no_of_small[i] < 10)
+	
+		while (no_of_small_all < 100)
 		{
-			for (int j = 1; j < 11; j++)
+			for (int i = 1; i < 11; i++)
 			{
-				if (very_small[i][j] == false) {
-
-					temp = arr[i][j];
-					arr[i][j] = 0.2 * (arr[i][j] + arr[i][j - 1] + arr[i - 1][j] + arr[i][j + 1] + arr[i + 1][j]);
-
-				}
-
-				if (arr[i][j] - temp < 0.1 && arr[i][j] > 0 && temp > 0)
+				if (no_of_small[i] > 10)
 				{
-					very_small[i][j] == true;
-					no_of_small[i]++;
+				
+					break;
+				
 				}
+				for (int j = 1; j < 11; j++)
+				{
+					if (very_small[i][j] == false) {
 
+						temp[i][j] = arr[i][j];
+						arr[i][j] = 0.2 * (arr[i][j] + arr[i][j - 1] + arr[i - 1][j] + arr[i][j + 1] + arr[i + 1][j]);
+
+					}
+				}
 			}
+
+				for (int i = 1; i < 11; i++)
+				{
+					for (int j = 1; j < 11; j++)
+					{
+
+
+						if (arr[i][j] - temp[i][j] < 0.1 && arr[i][j] > 0 && temp[i][j] > 0)
+						{
+							very_small[i][j] == true;
+							no_of_small[i]++;
+							no_of_small_all++; 
+						}
+
+					}
+				}
 			
 			printarray(arr);
 			cout << "-------------------------------------------" << endl;
 
 		}
-	}
+	
 }
 
 
@@ -345,7 +361,7 @@ printarray(arr);
 
 cout << "---------------------------------------------------------------" << endl;
 cout << "---------------------------------------------------------------" << endl;
-cout << "Time taken by Parallel threads : "
+cout << "Time taken by seq threads : "
 << duration.count() / 1000000 << " seconds" << endl;
 
 
