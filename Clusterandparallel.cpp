@@ -8,18 +8,23 @@ using namespace std::chrono;
 #define NUM_THREADS 10
 
 
-int counts = 0;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 const int m = 12;
 const int n = 12;
 int no_of_small [NUM_THREADS]= { 0 };
 
-int arr[n][m] = {};
-bool very_small[n][m] = {false};
-void printarray(int(&arr)[n][m]);
+int arr[n][m] = {};  // create  data array of size nxm
+bool very_small[n][m] = {false}; // create  boolean array of size nxm indicating nodes that is satisfied
+void printarray(int(&arr)[n][m]); //decleration of printarray function
 
 void *threadfunction(void *threadid) {
+	/*
+
+This function takes in a thread number and use it to change an array inner values to give thier final temperature values
+Where each thread is responsible to the outcomes of one row in the array 
+*/
+
 
 	long tid;
 	tid = (int)threadid;
@@ -44,19 +49,31 @@ void *threadfunction(void *threadid) {
 
 		}
 		cout << "thread no" << tid << "  modified the array"  <<endl;
-		//pthread_mutex_lock(&mutex);
+		pthread_mutex_lock(&mutex);
 		printarray(arr);
 		cout << "-------------------------------------------" << endl;
-		//pthread_mutex_unlock(&mutex);
+		pthread_mutex_unlock(&mutex);
+	
 	}
+
 	pthread_exit(NULL);
 	return NULL;
 }
 
 void Seqfunction(int (&arr)[n][m]) {
 
-	int no_of_small_all = 0;
-	int temp[n][m];
+	/*
+
+This function takes in a 2D  integar array and change it's inner values to give thier final temperature values
+
+*/
+
+
+
+
+
+	int no_of_small_all = 0; // This integar is indicator to how many nodes/points is satisfied 
+	int temp[n][m]; // This integar array  is used to save older temperature values to compare them to new ones 
 	int i;
 	
 		while (no_of_small_all < 100)
@@ -143,6 +160,14 @@ void Seqfunction(int (&arr)[n][m]) {
 
 void intialize_temperature(int(&arr)[n][m])
 {
+	/*
+
+This function takes in a 2D  integar array and change it's outermost values to given temperature values 
+
+*/
+
+
+
 
 	for (int i = 0; i < n ;i++)
 	{
@@ -200,6 +225,15 @@ void printarray(int(&arr)[n][m])
 
 {
 
+	/*
+
+This function takes in a 2D integar  array and print it
+
+*/
+
+
+
+
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
@@ -220,6 +254,16 @@ void printarray(int(&arr)[n][m])
 
 
 void printarraybool(bool (&arr)[n][m])
+
+
+/*
+
+This function takes in a 2D  boolean array and print it 
+
+*/
+
+
+
 
 {
 
@@ -246,6 +290,15 @@ void printarraybool(bool (&arr)[n][m])
 
 void resetarraybool(bool(&arr)[n][m])
 
+
+
+
+/*
+
+This function takes in a 2D boolean  array and reset it to false value to all values in it
+
+*/
+
 {
 
 	for (int i = 0; i < n; i++)
@@ -269,6 +322,15 @@ void resetarraybool(bool(&arr)[n][m])
 
 
 void resetarrayint(int(&arr)[n][m])
+
+
+
+/*
+
+This function takes in a 2D array and reset it to zero values to all values in it
+
+*/
+
 
 {
 
@@ -295,6 +357,14 @@ void resetarrayint(int(&arr)[n][m])
 
 
 void reset_1D_arrayint(int(&arr)[NUM_THREADS])
+
+/*
+
+This function takes in a 1D array and reset it to zero values to all values in it
+
+*/
+
+
 
 {
 
