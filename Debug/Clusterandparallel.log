@@ -1,0 +1,6 @@
+﻿  Clusterandparallel.cpp
+c:\users\omar hazem\source\repos\clusterandparallel\clusterandparallel\clusterandparallel.cpp(35): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\omar hazem\source\repos\clusterandparallel\clusterandparallel\clusterandparallel.cpp(41): warning C4553: '==': result of expression not used; did you intend '='?
+c:\users\omar hazem\source\repos\clusterandparallel\clusterandparallel\clusterandparallel.cpp(70): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\omar hazem\source\repos\clusterandparallel\clusterandparallel\clusterandparallel.cpp(76): warning C4553: '==': result of expression not used; did you intend '='?
+  Clusterandparallel.vcxproj -> C:\Users\Omar Hazem\source\repos\Clusterandparallel\Debug\Clusterandparallel.exe
